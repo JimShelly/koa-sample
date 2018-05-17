@@ -1,0 +1,25 @@
+{
+   "compilerOptions": {
+      "declaration": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "noUnusedLocals": true,
+      "lib": [
+         "esnext"
+      ],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "sourceMap": true,
+      "target": "es6",
+      "strictNullChecks": true,
+      "strict": true,
+      "typeRoots": [
+         "node_modules/@types",
+         "types"
+      ]
+   },
+   "include": [
+      "src/**/*.ts"
+   ]
+}
