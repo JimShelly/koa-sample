@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "transpile:w": "tsc -p ./tsconfig.json -w",
+    "lint": "tslint './src/**/*.ts'",
+    "start": "cross-env node dist/app.js",
+    "db:load": "knex seed:run --knexfile src/config/knexfile.ts",
+    "lint:fix": "standard --fix | snazzy",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "dev": "concurrently --kill-others \"npm run transpile:w\" \"npm run start\""
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,1 @@
+{"version":3,"file":"idea.js","sourceRoot":"","sources":["../../src/models/idea.ts"],"names":[],"mappings":";;AAAA,yCAAoD;AACpD,+BAA+B;AAC/B,uCAAoC;AAEpC,UAAkB,SAAQ,iBAAK;;AACd,cAAS,GAAW,OAAO,CAAC;AAE5B,qBAAgB,GAAqB;IAChD,QAAQ,EAAE;QACP,QAAQ,EAAE,iBAAK,CAAC,eAAe;QAC/B,UAAU,EAAE,iBAAO;QACnB,IAAI,EAAE;YACH,IAAI,EAAE,UAAU;YAChB,EAAE,EAAE,mBAAmB;SACzB;KACH;CACH,CAAC;AAZL,oBAaC"}

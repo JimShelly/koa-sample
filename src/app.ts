@@ -1,48 +1,23 @@
-import { IdeasController } from './controllers/ideas-controller';
 import * as Koa from 'koa';
+import * as koaHelmet from 'koa-helmet';
+import * as koaLogger from 'koa-logger';
+import * as cors from 'kcors';
 import * as bodyParser from 'koa-bodyparser';
-import * as Knex from 'knex';
-import 'reflect-metadata';
-import { useKoaServer } from 'routing-controllers';
-import { Model } from 'objection';
 
-const knexConfig: any = require('../knexfile');
-// Initialize knex.
-export const knex: Knex = Knex(knexConfig.development);
+import { config } from './config';
+import { db } from './middleware/db-middleware';
+import { router } from './routes';
 
-// Create or migrate:
-knex.migrate.latest();
+const app: Koa = new Koa();
+   app.use(bodyParser(config.bodyParser));
+   app.use(koaLogger);
+   app.use(koaHelmet());
+   app.use(db(app));
+   app.use(cors(config.cors));
 
-// Bind all Models to a knex instance. If you only have one database in
-// your server this is all you have to do. For multi database systems, see
-// the Model.bindKnex method.
-Model.knex(knex);
+app.use(router.routes());
 
-// Unfortunately the express-promise-router types are borked. Just require():
-// const router = require('express-promise-router')();
-const app: Koa = new Koa()
-   .use(bodyParser);
-
-   useKoaServer(app, {
-      routePrefix: '/api/';
-      controllers: [__dirname + '/controllers/*.ts']
-   });
-
-
-
-// Error handling. The `ValidationError` instances thrown by objection.js have a `statusCode`
-// property that is sent as the status code of the response.
-//
-// NOTE: This is not a good error handler, this is the simplest one. See the error handing
-//       recipe for a better handler: http://vincit.github.io/objection.js/#error-handling
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-   if (err) {
-      res.status(err.statusCode || err.status || 500).send(err.data || err.message || {});
-   } else {
-      next();
-   }
-});
-const port = process.env.PORT || 8641;
-const server = app.listen(port, function () {
-   console.log('Example app listening at port %s', port);
+app.listen(config.server.port, config.server.host, () => {
+   // tslint:disable-next-line
+   console.log(`Listening ${config.server.host}:${config.server.port}`);
 });

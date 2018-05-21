@@ -1,13 +1,4 @@
-import * as Knex from 'knex';
-import { Model, RelationMappings } from 'objection';
-const connection = require('../knexfile');
+import { Comment } from './comment';
+import { Idea } from './idea';
 
-
-const knexConnection: Knex = Knex(connection);
-
-Model.knex(knexConnection);
-
-
-
-
-module.exports = { Idea, Comment }
+module.exports = { Idea, Comment };

@@ -1,29 +1,26 @@
-import { Body, Delete, Get, JsonController, Param, Post, Put } from 'routing-controllers';
+import { Context } from 'koa';
 
-@JsonController()
-export class IdeasController{
-   @Get('/ideas')
-   public getAll(): string {
-      return 'This is all users';
-   }
+export const Ideas = {
+      async get(ctx: Context) {
+            ctx.body = {
+                  status: 'success',
+                  message: 'This is all users'
+            };
+      },
 
-   @Get('/ideas/:id')
-   public getOne(@Param('id') id: number): string {
-         return 'This action returns idea #' + id;
-   }
+      async getOne(ctx: Context) {
+         return 'This action returns idea #' + ctx.params.id;
+      },
 
-   @Post('/ideas')
-   public post(@Body() idea: any): string {
-      return 'Saving user...';
-   }
+      async post(ctx: Context) {
+            return 'Saving user...';
+      },
 
-   @Put('/ideas/:id')
-   public put(@Param('id') id: number, @Body() user: any) {
-      return 'Updating idea...';
-   }
+      async put(ctx: Context) {
+            return 'Updating idea...';
+      },
 
-   @Delete('/ideas/:id')
-   public remove(@Param('id') id: number) {
-      return 'Removing idea...';
-   }
+      async remove() {
+            return 'Removing idea...';
+      }
 }
